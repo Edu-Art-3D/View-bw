@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EduArt Interactive</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    #app-container, iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-container"></div>
+
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      const lang = urlParams.get('lang') || 'ar';
+      const key = urlParams.get('key');
+      
+      const SECRET_KEY = "edu2026";
+      // استبدلي هذا الرابط برابط صفحة الكمين الخاصة بكِ
+      const TRAP_PAGE_URL = "https://edu-art-3d-book.my.canva.site/birds-trap"; 
+
+      // 1. التحقق من مفتاح الحماية
+      if (key !== SECRET_KEY) {
+        window.location.href = TRAP_PAGE_URL;
+        return;
+      }
+
+      // 2. تنظيف شريط العنوان فوراً ومسح المفتاح السري!
+      const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${id}&lang=${lang}`;
+      window.history.replaceState({path: cleanUrl}, '', cleanUrl);
+
+      // 3. خريطة الروابط (استبدلي your-username باسم حسابك الحقيقي)
+      const modelsBaseUrls = {
+        "emperor-penguin": "https://edu-art-3d.github.io/Eduart-emperor-penguin-3D/",
+"Golden-Eagle": "https://edu-art-3d.github.io/Eduart-Golden-Eagle-3D/",
+"scarletmacaw": "https://edu-art-3d.github.io/Eduart-scarletmacaw-3D/",
+"Mallardduck": "https://edu-art-3d.github.io/Eduart-Mallardduck-3D/",
+"ostrich": "https://edu-art-3d.github.io/Eduart-ostrich-3D/",
+"canary": "https://edu-art-3d.github.io/Eduart-canary-3D/",
+"hoopoe": "https://edu-art-3d.github.io/Eduart-hoopoe-3D/",
+"kingfisher": "https://edu-art-3d.github.io/Eduart-kingfisher-3D/",
+"seagull": "https://edu-art-3d.github.io/Eduart-seagull-3D/",
+"owl": "https://edu-art-3d.github.io/Eduart-owl-3D/",
+"flamingo": "https://edu-art-3d.github.io/Eduart-flamingo-3D/",
+"peacock": "https://edu-art-3d.github.io/Eduart-peacock-3D/",
+"pheasant": "https://edu-art-3d.github.io/Eduart-pheasant-3D/",
+"pigeon": "https://edu-art-3d.github.io/Eduart-pigeon-3D/",
+"sparrow": "https://edu-art-3d.github.io/Eduart-sparrow-3D/",
+"chicken": "https://edu-art-3d.github.io/Eduart-chicken-3D/",
+"kiwi": "https://edu-art-3d.github.io/Eduart-kiwi-3D/",
+"woodpecker": "https://edu-art-3d.github.io/Eduart-woodpecker-3D/",
+"Toucan": "https://edu-art-3d.github.io/Eduart-Toucan-3D/",
+"swallow": "https://edu-art-3d.github.io/Eduart-swallow-3D/"
+      };
+
+      const selectedModel = modelsBaseUrls[id];
+
+      if (selectedModel) {
+        // فتح نموذج الفيل داخل iframe وتمرير المفتاح له
+        const targetUrl = selectedModel + "?key=" + SECRET_KEY;
+        document.getElementById('app-container').innerHTML = `<iframe src="${targetUrl}" allow="camera; microphone; ar"></iframe>`;
+      } else {
+        window.location.href = TRAP_PAGE_URL;
+      }
+    })();
+  </script>
+
+</body>
+</html>
